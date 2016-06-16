@@ -1,9 +1,10 @@
+import _ from 'lodash'
 import { Map } from 'immutable'
 import { combineReducers } from 'redux'
 import { NEW_BALL, PADDLE_DOWN, PADDLE_UP, UPDATE, WIN_POINTS } from './actions'
 import { SVG_WIDTH, SVG_HEIGHT } from './containers/App'
 import { BALL_RADIUS } from './components/Ball'
-import { PADDLE_STEP } from './components/Paddle'
+import { PADDLE_HEIGHT, PADDLE_STEP } from './components/Paddle'
 
 const initialBall = Map({
   x: SVG_WIDTH  / 2,
@@ -47,24 +48,28 @@ const initialPaddles = Map({
 })
 
 function paddles(state = initialPaddles, action) {
-  const left  = state.get('left')
-  const right = state.get('right')
+  function movePaddle(paddle, amount) {
+    const newY = _.clamp(paddle.get('y') + amount, 0,
+                         SVG_HEIGHT - PADDLE_HEIGHT)
+    return paddle.set('y', newY)
+  }
+
+  function getPaddle() {
+    switch (action.side) {
+    case 'left':
+      return state.get('left')
+    case 'right':
+      return state.get('right')
+    default:
+      throw new Error('Bad paddle side: ' + action.side)
+    }
+  }
 
   switch (action.type) {
   case PADDLE_UP:
-    if (action.side === 'left') {
-      return state.set('left',  left.set('y',  left.get('y')  - PADDLE_STEP))
-    } else if (action.side === 'right') {
-      return state.set('right', right.set('y', right.get('y') - PADDLE_STEP))
-    }
-    throw new Error('Bad paddle side: ' + action.side)
+    return state.set(action.side, movePaddle(getPaddle(), -PADDLE_STEP))
   case PADDLE_DOWN:
-    if (action.side === 'left') {
-      return state.set('left',  left.set('y',  left.get('y')  + PADDLE_STEP))
-    } else if (action.side === 'right') {
-      return state.set('right', right.set('y', right.get('y') + PADDLE_STEP))
-    }
-    throw new Error('Bad paddle side: ' + action.side)
+    return state.set(action.side, movePaddle(getPaddle(),  PADDLE_STEP))
   default:
     return state
   }
