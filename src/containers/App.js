@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { update } from '../actions'
-import Ball from '../components/Ball'
+import { winPoints, update } from '../actions'
+import Ball, { BALL_RADIUS } from '../components/Ball'
 import PaddleContainer from './PaddleContainer'
 import ScoreDisplay from '../components/ScoreDisplay'
 
@@ -19,11 +19,19 @@ class App extends Component {
     clearInterval(this.interval)
   }
 
+  componentWillReceiveProps({ ballX }) {
+    if (ballX - BALL_RADIUS <= 0) {
+      this.props.dispatch(winPoints('right'))
+    } else if (ballX + BALL_RADIUS >= SVG_WIDTH) {
+      this.props.dispatch(winPoints('left'))
+    }
+  }
+
   render() {
     return (
       <svg width={ SVG_WIDTH } height={ SVG_HEIGHT } style={{
            backgroundColor: 'black' }}>
-        <ScoreDisplay score={ this.props.score } />
+        <ScoreDisplay />
         <Ball x={ this.props.ballX } y={ this.props.ballY } />
         <PaddleContainer />
       </svg>

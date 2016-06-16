@@ -46,9 +46,9 @@ export function update() {
   }
 }
 
-export function winPoints(amount) {
+export function winPoints(side, amount = 1) {
   return {
     type: WIN_POINTS,
-    amount
+    side, amount
   }
 }

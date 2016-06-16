@@ -20,7 +20,7 @@ function ball(state = initialBall, action) {
   case UPDATE:
     let newX  = state.get('x') + state.get('vx')
     let newVx = state.get('vx')
-    if (newX - BALL_RADIUS < 0) {
+    if (newX - BALL_RADIUS <= 0) {
       newX = BALL_RADIUS
       newVx *= -1
     } else if (newX + BALL_RADIUS >= SVG_WIDTH) {
@@ -29,7 +29,7 @@ function ball(state = initialBall, action) {
     }
     let newY = state.get('y') + state.get('vy')
     let newVy = state.get('vy')
-    if (newY - BALL_RADIUS < 0) {
+    if (newY - BALL_RADIUS <= 0) {
       newY = BALL_RADIUS
       newVy *= -1
     } else if (newY + BALL_RADIUS >= SVG_HEIGHT) {
@@ -75,15 +75,18 @@ function paddles(state = initialPaddles, action) {
   }
 }
 
-function score(state = 0, action) {
+function scores(state = Map({ left: 0, right: 0 }), action) {
   switch (action.type) {
   case WIN_POINTS:
-    return state + action.amount
+    if (action.side !== 'left' && action.side !== 'right') {
+      throw new Error('Bad score side: ' + action.side)
+    }
+    return state.set(action.side, state.get(action.side) + action.amount)
   default:
     return state
   }
 }
 
 export default combineReducers({
-  ball, score, paddles
+  ball, scores, paddles
 })
