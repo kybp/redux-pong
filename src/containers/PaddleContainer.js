@@ -1,8 +1,28 @@
+import _ from 'lodash'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { hitPaddle, movePaddleUp, movePaddleDown } from '../actions'
-import Paddle from '../components/Paddle'
-import { collides } from '../reducers'
+import { BALL_RADIUS } from '../components/Ball'
+import Paddle, { PADDLE_WIDTH, PADDLE_HEIGHT } from '../components/Paddle'
+
+function overlaps(lowEdge1, lowEdge2, highEdge1, highEdge2) {
+  // We're adding 1 here so that both ends of the range will be
+  // exclusive, and as a result the comparison will work the same
+  // regardless of whether object 1 or 2 is farther along the axis
+  return _.inRange(lowEdge1, lowEdge2 + 1, highEdge2) ||
+    _.inRange(highEdge1, lowEdge2 + 1, highEdge2)
+}
+
+export function collides(ball, paddle) {
+  return overlaps(ball.get('x')   - BALL_RADIUS,
+                  paddle.get('x'),
+                  ball.get('x')   + BALL_RADIUS,
+                  paddle.get('x') + PADDLE_WIDTH) &&
+         overlaps(ball.get('y')   - BALL_RADIUS,
+                  paddle.get('y'),
+                  ball.get('y')   + BALL_RADIUS,
+                  paddle.get('y') + PADDLE_HEIGHT)
+}
 
 class PaddleContainer extends Component {
   componentDidMount() {
@@ -25,12 +45,9 @@ class PaddleContainer extends Component {
   }
 
   componentWillReceiveProps({ ball, leftPaddle, rightPaddle }) {
-    const x = ball.get('x')
-    const y = ball.get('y')
-
-    if (collides(x, y, leftPaddle)) {
+    if (collides(ball, leftPaddle)) {
       this.props.dispatch(hitPaddle(ball, leftPaddle))
-    } else if (collides(x, y, rightPaddle)) {
+    } else if (collides(ball, rightPaddle)) {
       this.props.dispatch(hitPaddle(ball, rightPaddle))
     }
   }
