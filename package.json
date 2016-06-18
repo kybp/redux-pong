@@ -6,8 +6,12 @@
     "start": "node server.js",
     "lint": "eslint src; true"
   },
-  "author": "",
+  "author": "Kyle Brown <picokyle@gmail.com>",
   "license": "GPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kybp/redux-pong.git"
+  },
   "devDependencies": {
     "babel-core": "^6.0.20",
     "babel-eslint": "^4.1.3",

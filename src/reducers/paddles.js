@@ -2,12 +2,13 @@ import _ from 'lodash'
 import { Map } from 'immutable'
 import { PADDLE_UP, PADDLE_DOWN } from '../actions'
 import { BALL_RADIUS } from '../components/Ball'
-import { PADDLE_HEIGHT, PADDLE_STEP } from '../components/Paddle'
+import { PADDLE_WIDTH, PADDLE_HEIGHT, PADDLE_STEP } from '../components/Paddle'
 import { SVG_WIDTH, SVG_HEIGHT } from '../containers/App'
 
 const initialPaddles = Map({
   left:  Map({ x:             BALL_RADIUS * 3, y: SVG_HEIGHT / 2 }),
-  right: Map({ x: SVG_WIDTH - BALL_RADIUS * 3, y: SVG_HEIGHT / 2 })
+  right: Map({ x: SVG_WIDTH - BALL_RADIUS * 3 - PADDLE_WIDTH,
+               y: SVG_HEIGHT / 2 })
 })
 
 function paddles(state = initialPaddles, action) {

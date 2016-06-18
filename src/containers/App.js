@@ -6,7 +6,7 @@ import PaddleContainer from './PaddleContainer'
 import ScoreDisplay from '../components/ScoreDisplay'
 
 export const SVG_HEIGHT = 600
-export const SVG_WIDTH  = 1000
+export const SVG_WIDTH  = 800
 
 class App extends Component {
   componentDidMount() {
