@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { movePaddleUp, movePaddleDown } from '../actions'
+import { hitPaddle, movePaddleUp, movePaddleDown } from '../actions'
 import Paddle from '../components/Paddle'
+import { collides } from '../reducers'
 
 class PaddleContainer extends Component {
   componentDidMount() {
@@ -23,20 +24,33 @@ class PaddleContainer extends Component {
     }
   }
 
+  componentWillReceiveProps({ ball, leftPaddle, rightPaddle }) {
+    const x = ball.get('x')
+    const y = ball.get('y')
+
+    if (collides(x, y, leftPaddle)) {
+      this.props.dispatch(hitPaddle(ball, leftPaddle))
+    } else if (collides(x, y, rightPaddle)) {
+      this.props.dispatch(hitPaddle(ball, rightPaddle))
+    }
+  }
+
   render() {
     return (
       <g>
         <Paddle paddle={ this.props.leftPaddle  } />
+        { this.props.children }
         <Paddle paddle={ this.props.rightPaddle } />
       </g>
     )
   }
 }
 
-function mapStateToProps({ paddles }) {
+function mapStateToProps({ ball, paddles }) {
   return {
     leftPaddle:  paddles.get('left'),
-    rightPaddle: paddles.get('right')
+    rightPaddle: paddles.get('right'),
+    ball
   }
 }
 

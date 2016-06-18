@@ -32,8 +32,9 @@ class App extends Component {
       <svg width={ SVG_WIDTH } height={ SVG_HEIGHT } style={{
            backgroundColor: 'black' }}>
         <ScoreDisplay />
-        <Ball x={ this.props.ballX } y={ this.props.ballY } />
-        <PaddleContainer />
+        <PaddleContainer>
+          <Ball x={ this.props.ballX } y={ this.props.ballY } />
+        </PaddleContainer>
       </svg>
     );
   }
