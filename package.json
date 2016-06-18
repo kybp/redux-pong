@@ -4,7 +4,8 @@
   "description": "Pong in SVG with Redux and React",
   "scripts": {
     "start": "node server.js",
-    "lint": "eslint src; true"
+    "lint": "eslint src; true",
+    "test": "mocha --compilers js:babel-register --recursive"
   },
   "author": "Kyle Brown <picokyle@gmail.com>",
   "license": "GPL-3.0",
@@ -20,6 +21,7 @@
     "babel-preset-react": "^6.0.15",
     "eslint": "^1.10.3",
     "eslint-plugin-react": "^3.6.2",
+    "mocha": "^2.5.3",
     "react-hot-loader": "^1.3.0",
     "webpack": "^1.12.2",
     "webpack-dev-server": "^1.14.1"

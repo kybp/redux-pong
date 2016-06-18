@@ -63,6 +63,9 @@ function checkCollision(ball, paddle) {
 function ball(state = initialBall, action) {
   switch (action.type) {
   case HIT_PADDLE: {
+    if (! action.paddle.left && ! action.paddle.right) {
+      throw new Error('bad paddle to ball reducer')
+    }
     const { newPosition: x, newVelocity: vx } =
           checkCollision(state, action.paddle)
     return state.set('x', x).set('vx', vx)

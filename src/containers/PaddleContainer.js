@@ -48,9 +48,9 @@ class PaddleContainer extends Component {
 
   componentWillReceiveProps({ ball, leftPaddle, rightPaddle }) {
     if (collides(ball, leftPaddle)) {
-      this.props.dispatch(hitPaddle(ball, leftPaddle))
+      this.props.dispatch(hitPaddle(leftPaddle))
     } else if (collides(ball, rightPaddle)) {
-      this.props.dispatch(hitPaddle(ball, rightPaddle))
+      this.props.dispatch(hitPaddle(rightPaddle))
     }
   }
 

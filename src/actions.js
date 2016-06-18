@@ -8,10 +8,9 @@ export const TOGGLE_PAUSE = 'TOGGLE_PAUSE'
 export const UPDATE       = 'UPDATE'
 export const WIN_POINTS   = 'WIN_POINTS'
 
-export function hitPaddle(ball, paddle) {
+export function hitPaddle(paddle) {
   return {
     type: HIT_PADDLE,
-    ball,
     paddle: paddle.get('x') < SVG_WIDTH / 2 ?
       { left: paddle } : { right: paddle }
   }
