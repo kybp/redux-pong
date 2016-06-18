@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { winPoints, update } from '../actions'
+import { togglePause, update, winPoints } from '../actions'
 import Ball, { BALL_RADIUS } from '../components/Ball'
 import PaddleContainer from './PaddleContainer'
 import ScoreDisplay from '../components/ScoreDisplay'
@@ -11,12 +11,20 @@ export const SVG_WIDTH  = 800
 class App extends Component {
   componentDidMount() {
     this.interval = setInterval(() => {
-      this.props.dispatch(update())
+      if (! this.props.paused) this.props.dispatch(update())
     }, 1000 / 30)
+    document.addEventListener('keydown', event => this.handleInput(event))
+  }
+
+  handleInput(event) {
+    if (event.which === 80) { // p
+      this.props.dispatch(togglePause())
+    }
   }
 
   componentWillUnmount() {
     clearInterval(this.interval)
+    document.removeEventListener('keydown', this.handleInput)
   }
 
   componentWillReceiveProps({ ballX }) {
@@ -40,11 +48,11 @@ class App extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps({ ball, score, paused }) {
   return {
-    ballX: state.ball.get('x'),
-    ballY: state.ball.get('y'),
-    score: state.score
+    ballX: ball.get('x'),
+    ballY: ball.get('y'),
+    score, paused
   }
 }
 

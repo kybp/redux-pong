@@ -10,4 +10,4 @@ A simple version of Pong using React and Redux. It renders to SVG.
 
 The left paddle moves up by pressing 'w' and moves down by pressing
 's'. The right paddle moves up by pressing 'o' and moves down by
-pressing 'l'.
+pressing 'l'. The game can be paused with 'p'.

@@ -32,6 +32,8 @@ class PaddleContainer extends Component {
   }
 
   handleInput(event) {
+    if (this.props.paused) return
+
     switch (event.which) {
     case 87: // w
       return this.props.dispatch(movePaddleUp('left'))
@@ -63,11 +65,11 @@ class PaddleContainer extends Component {
   }
 }
 
-function mapStateToProps({ ball, paddles }) {
+function mapStateToProps({ ball, paddles, paused }) {
   return {
     leftPaddle:  paddles.get('left'),
     rightPaddle: paddles.get('right'),
-    ball
+    ball, paused
   }
 }
 

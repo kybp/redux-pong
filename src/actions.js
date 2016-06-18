@@ -1,11 +1,12 @@
 import { SVG_WIDTH } from './containers/App'
 
-export const HIT_PADDLE  = 'HIT_PADDLE'
-export const NEW_BALL    = 'NEW_BALL'
-export const PADDLE_DOWN = 'PADDLE_DOWN'
-export const PADDLE_UP   = 'PADDLE_UP'
-export const UPDATE      = 'UPDATE'
-export const WIN_POINTS  = 'WIN_POINTS'
+export const HIT_PADDLE   = 'HIT_PADDLE'
+export const NEW_BALL     = 'NEW_BALL'
+export const PADDLE_DOWN  = 'PADDLE_DOWN'
+export const PADDLE_UP    = 'PADDLE_UP'
+export const TOGGLE_PAUSE = 'TOGGLE_PAUSE'
+export const UPDATE       = 'UPDATE'
+export const WIN_POINTS   = 'WIN_POINTS'
 
 export function hitPaddle(ball, paddle) {
   return {
@@ -33,6 +34,12 @@ export function movePaddleUp(side) {
 export function newBall() {
   return {
     type: NEW_BALL
+  }
+}
+
+export function togglePause() {
+  return {
+    type: TOGGLE_PAUSE
   }
 }
 
