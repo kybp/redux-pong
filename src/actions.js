@@ -1,24 +1,8 @@
-export const ADD_BLOCK   = 'ADD_BLOCK'
-export const BREAK_BLOCK = 'BREAK_BLOCK'
+export const NEW_BALL    = 'NEW_BALL'
 export const PADDLE_DOWN = 'PADDLE_DOWN'
 export const PADDLE_UP   = 'PADDLE_UP'
-export const NEW_BALL    = 'NEW_BALL'
 export const UPDATE      = 'UPDATE'
 export const WIN_POINTS  = 'WIN_POINTS'
-
-export function addBlock(x, y) {
-  return {
-    type: ADD_BLOCK,
-    x, y
-  }
-}
-
-export function breakBlock(index) {
-  return {
-    type: BREAK_BLOCK,
-    index
-  }
-}
 
 export function movePaddleDown(side) {
   return {
