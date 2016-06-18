@@ -1,5 +1,4 @@
 import assert from 'assert'
-import { Map } from 'immutable'
 import { hitPaddle, update } from '../src/actions'
 import { HIT_PADDLE, NEW_BALL, UPDATE } from '../src/actions'
 import { BALL_RADIUS } from '../src/components/Ball'
@@ -51,22 +50,16 @@ describe('ball reducer', () => {
   describe(UPDATE, () => {
     it('increases x by vx', () => {
       const vx   = initialState.ball.get('vx')
-      const x    = initialState.ball.get('x') + vx
+      const x    = initialState.ball.get('x')
       const ball = reducer(initialState, update()).ball
-
-      assert(ball.equals(Map({
-        x, vx, y: ball.get('y'), vy: ball.get('vy')
-      })))
+      assert.strictEqual(ball.get('x'), x + vx)
     })
 
     it('increases y by vy', () => {
       const vy   = initialState.ball.get('vy')
-      const y    = initialState.ball.get('y') + vy
+      const y    = initialState.ball.get('y')
       const ball = reducer(initialState, update()).ball
-
-      assert(ball.equals(Map({
-        x: ball.get('x'), vx: ball.get('vx'), y, vy
-      })))
+      assert.strictEqual(ball.get('y'), y + vy)
     })
 
     it('does not change vx', () => {
