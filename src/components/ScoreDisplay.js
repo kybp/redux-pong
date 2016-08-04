@@ -1,15 +1,24 @@
 import React from 'react'
+import { Table } from 'react-bootstrap'
 import { connect } from 'react-redux'
 
 const ScoreDisplay = ({ leftScore, rightScore }) => (
-  <g>
-    <text x="20" y="70" fontSize="80" fill="white">
-      { 'Left: ' + leftScore }
-    </text>
-    <text x="20" y="140" fontSize="80" fill="white">
-      { 'Right: ' + rightScore }
-    </text>
-  </g>
+  <Table style={{ fontSize: 50 }}>
+    <tbody>
+      <tr>
+        <td>Left</td>
+        <td style={{ float: 'right', width: '100%' }}>
+          <span style={{ 'float': 'right' }}>{ leftScore }</span>
+        </td>
+      </tr>
+      <tr>
+        <td>Right</td>
+        <td style={{ float: 'right', width: '100%' }}>
+          <span style={{ 'float': 'right' }}>{ rightScore }</span>
+        </td>
+      </tr>
+    </tbody>
+  </Table>
 )
 
 function mapStateToProps({ scores }) {

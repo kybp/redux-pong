@@ -1,3 +1,5 @@
+// -*-javascript-*-
+
 {
   "extends": "eslint:recommended",
   "ecmaFeatures": {

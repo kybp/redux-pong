@@ -37,14 +37,15 @@ class App extends Component {
 
   render() {
     return (
-      <svg width={ SVG_WIDTH } height={ SVG_HEIGHT } style={{
-           backgroundColor: 'black' }}>
+      <div style={{ border: '1px solid black', display: 'inline-block' }}>
+        <svg width={ SVG_WIDTH } height={ SVG_HEIGHT }>
+          <PaddleContainer>
+            <Ball x={ this.props.ballX } y={ this.props.ballY } />
+          </PaddleContainer>
+        </svg>
         <ScoreDisplay />
-        <PaddleContainer>
-          <Ball x={ this.props.ballX } y={ this.props.ballY } />
-        </PaddleContainer>
-      </svg>
-    );
+      </div>
+    )
   }
 }
 
