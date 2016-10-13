@@ -4,8 +4,9 @@ import { togglePause, update, winPoints } from '../actions'
 import Ball, { BALL_RADIUS } from '../components/Ball'
 import PaddleContainer from './PaddleContainer'
 import ScoreDisplay from '../components/ScoreDisplay'
+import { Well } from 'react-bootstrap'
 
-export const SVG_HEIGHT = 600
+export const SVG_HEIGHT = 300
 export const SVG_WIDTH  = 800
 
 class App extends Component {
@@ -38,12 +39,14 @@ class App extends Component {
   render() {
     return (
       <div style={{ border: '1px solid black', display: 'inline-block' }}>
+        <Well style={{ margin: 0 }}>
+          <ScoreDisplay />
+        </Well>
         <svg width={ SVG_WIDTH } height={ SVG_HEIGHT }>
           <PaddleContainer>
             <Ball x={ this.props.ballX } y={ this.props.ballY } />
           </PaddleContainer>
         </svg>
-        <ScoreDisplay />
       </div>
     )
   }

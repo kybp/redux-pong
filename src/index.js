@@ -9,7 +9,15 @@ const store = createStore(reducer)
 
 render(
   <Provider store={ store }>
-    <App />
+    <div style={{
+      height:         '90vh',
+      display:        'flex',
+      flexDirection:  'column',
+      alignItems:     'center',
+      justifyContent: 'center'
+    }}>
+      <App />
+    </div>
   </Provider>,
   document.getElementById('app')
 )
